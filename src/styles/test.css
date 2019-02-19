@@ -1,0 +1,48 @@
+@svg 1px-border {
+  height: 2px;
+  @rect {
+    fill: var(--color, black);
+    width: 100%;
+    height: 50%;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10vw;
+  @media screen and (max-width: 320px) {
+    font-size: 32px;
+  }
+  @media screen and (min-width: 540px) {
+    font-size: 54px;
+  }
+}
+
+body {
+  max-width: 540px;
+  min-width: 320px;
+}
+
+:global(.foo) {
+  background-image: url(../images/Back.png);
+}
+
+:global(.bar) {
+  background-image: url(../images/Back1.png);
+}
+
+/* :global(.kar) {
+  background-image: url(../images/s1.jpg);
+} */
+
+.example {
+  border-bottom: 1px solid transparent;
+  border-image: svg(1px-border param(--color #00b1ff)) 2 2 stretch;
+  width: px2rem(640);
+  height: px2rem(88);
+  box-sizing: border-box;
+}
