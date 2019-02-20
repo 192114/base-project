@@ -4,7 +4,8 @@ const sprites = require('postcss-sprites') // 生成雪碧图 ===> 图标方案�
 const postcssWriteSvg = require('postcss-write-svg') // 用于解决1像素问题
 const precss = require('precss') // 使用类scss语法 其中包含postcss-preset-env 可以使用stage2 及以后的语法
 const functions = require('postcss-functions') // 定义css中方法  此处是处理px转rem问题
-
+const reporter = require('postcss-reporter') // 输出postcss产出
+const stylelint = require('stylelint') // css代码校验
 
 module.exports = {
   plugins: [
@@ -16,6 +17,7 @@ module.exports = {
       },
     }),
     postcssWriteSvg(),
+    stylelint(),
     // sprites({
     //   filterBy: [],
     //   spritePath: './dist/images/',
@@ -31,5 +33,6 @@ module.exports = {
     // }),
     precss(),
     // postcssPresetEnv(),
+    reporter()
   ],
 }

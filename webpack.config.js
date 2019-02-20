@@ -1,5 +1,6 @@
 // node 内置模块
 const path = require('path')
+const webpack = require('webpack')
 // css 压缩 (直接使用 minimize: true 在匹配到css后直接压缩, 项目是用了autoprefix自动添加前缀，这样压缩，会导致添加的前缀丢失)
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -9,8 +10,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 显示打包进度
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-// TODO: svgo 优化svg
-
 module.exports = {
   entry: './src/index.js',
 
@@ -19,6 +18,18 @@ module.exports = {
     chunkFilename: 'js/[name].[hash:8].js', // 指定分离出来的代码文件的名称
     path: path.resolve(__dirname, 'dist'),
     // publicPath: '/' // 解释： https://juejin.im/post/5ae9ae5e518825672f19b094
+  },
+
+  devServer: {
+    hot: true,
+    publicPath: '/',
+    proxy: {
+      '/api': {
+        target: "http://10.0.0.130:8555", // 将 URL 中带有 /api 的请求代理到本地的 3000 端口的服务上
+        compress: true,
+        pathRewrite: {'^/api': ''}, // 把 URL 中 path 部分的 `api` 移除掉
+      },
+    }
   },
 
   module: {
@@ -132,6 +143,7 @@ module.exports = {
     //   },
     //   canPrint: true,
     // }),
+    new webpack.HotModuleReplacementPlugin(),
     new ProgressBarPlugin({
       format: '  build [:bar] :percent (:elapsed seconds)',
       clear: false,
