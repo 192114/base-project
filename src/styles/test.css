@@ -1,5 +1,6 @@
 @svg 1px-border {
   height: 2px;
+
   @rect {
     fill: var(--color, black);
     width: 100%;
@@ -14,9 +15,11 @@
 
 html {
   font-size: 10vw;
+
   @media screen and (max-width: 320px) {
     font-size: 32px;
   }
+
   @media screen and (min-width: 540px) {
     font-size: 54px;
   }
@@ -45,4 +48,5 @@ body {
   width: px2rem(640);
   height: px2rem(88);
   box-sizing: border-box;
+  color: #fff;
 }
