@@ -7,7 +7,7 @@ const OpenBroswerPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
   devtool: 'cheap-module-source-map',
-  entry: './src/index.js',
+  entry: './src/index.jsx',
 
   output: {
     filename: 'js/[name].[hash:8].js',
@@ -43,7 +43,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
         use: [
           {
             loader: 'style-loader',

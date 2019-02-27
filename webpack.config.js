@@ -1,18 +1,21 @@
 // node 内置模块
 const path = require('path')
+const webpack = require('webpack')
 // css 压缩 (直接使用 minimize: true 在匹配到css后直接压缩, 项目是用了autoprefix自动添加前缀，这样压缩，会导致添加的前缀丢失)
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const cssnano = require('cssnano')
 // 生成html模版
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// 增强html-webpack-plugin (注入dll生成的基础库）也可以考虑放到html-webpack-plugin的模板中写dll的路径
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 // 显示打包进度
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 // js 压缩
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.jsx',
 
   output: {
     filename: 'js/[name].[hash:8].js',
@@ -37,7 +40,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -124,6 +128,14 @@ module.exports = {
         minifyJS: true // 压缩 HTML 中出现的 JS 代码
       },
     }),
+    new webpack.DllReferencePlugin({
+      manifest: require('./dist/lib/vendor.manifest.json'),
+    }),
+    new HtmlWebpackIncludeAssetsPlugin({
+      assets: ['./lib/vendor.dll.js'], // 添加的资源相对html的路径
+      append: false, // false 在其他资源的之前添加 true 在其他资源之后添加
+      hash: true,
+    }),
     new ProgressBarPlugin({
       format: '  build [:bar] :percent (:elapsed seconds)',
       clear: false,
@@ -159,15 +171,6 @@ module.exports = {
     splitChunks: {
       chunks: 'all', // 所有的 chunks 代码公共的部分分离出来成为一个单独的文件
       cacheGroups: {
-        // js提取
-        reactBase: {
-          name: 'reactBase',
-          test: (module) => {
-            return /react|redux|prop-types/.test(module.context);
-          },
-          chunks: 'initial',
-          priority: 10,
-        },
         common: {
           name: 'common',
           chunks: 'initial',
