@@ -38,11 +38,69 @@
  > - postcss-atroot
  > - postcss-property-lookup
  > - postcss-nested
-11. stylelint
+9. stylelint
   - stylelint-config-standard
   *css规则*
   - stylelint-scss
   *stylelint插件 检测sass语法*
-12. svg-sprite-loader
-*使用svg小图标将svg代码添加到html中*
+10. svg-sprite-loader
+*使用svg小图标将svg代码添加到html中 https://juejin.im/post/59bb864b5188257e7a427c09*
  - svgo 压缩svg 删除无用的代码
+11. babel-plugin-react-css-modules
+*css模块化 以组件分割*
+
+## browserslist内容记录
+*https://github.com/browserslist/browserslist*
+
+可以用在package.json:
+``` javascript
+  {
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ]
+}
+```
+
+或者用在.browserslistrc中:
+
+```
+# Browsers that we support
+
+last 1 version
+> 1%
+maintained node versions
+not dead
+```
+**Browserslist使用[Can I Use](https://caniuse.com/)数据查询**
+
+  ### 查找配置顺序
+  1. package.json 的 browserslist键 （推荐）
+  2. 工具选项（如Autoprefixer 的 browsers）
+  3. BROWSERSLIST 环境
+  4. 当前目录或父目录的browserslist配置
+  5. 当前目录或父目录的.browserslistrc
+  6. 都没有就默认：> 0.5%, last 2 versions, Firefox ESR, not dead
+
+## eslint 部分
+使用Airbnb的语法规则：
+```
+npx install-peerdeps --dev eslint-config-airbnb
+```
+配置：
+```javascript
+module.exports = {
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "plugins": [ "react", "jsx-a11y", "import" ],
+  "rules": {
+    "semi": [ 0 ], // 可以省略分号
+  }
+}
+```
