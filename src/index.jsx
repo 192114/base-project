@@ -1,9 +1,5 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import './assets/styles/test.css'
+import App from './App'
 
-// import Icon from './component/Icon/index'
-
-const HelloMessage = () => <div styleName="example" className="">111</div>
-
-ReactDom.render(<HelloMessage name="Taylor" />, document.querySelector('#root'))
+ReactDom.render(<App />, document.querySelector('#root'))

@@ -185,3 +185,9 @@ smp.wrap({
   /** config **/
 })
 ```
+
+8. 缓存问题
+
+*我们使用 [cache-loader](https://github.com/webpack-contrib/cache-loader) 来缓存结果（[babel-loader](https://github.com/babel/babel-loader) 的用户通常会优先选择使用它的 内建缓存，[UglifyJSPlugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) 的 内建缓存，以及加入了 [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin)*
+
+*最后要注意的是，每当程序包依赖性发生变化时，请记住清除缓存 - 可以使用 npm postinstall script 自动执行。*

@@ -1,8 +1,8 @@
 // node 内置模块
 const path = require('path')
 const webpack = require('webpack')
-const os = require('os')
-const ossize = os.cpus().length
+// const os = require('os')
+// const ossize = os.cpus().length
 // css 压缩 (直接使用 minimize: true 在匹配到css后直接压缩, 项目是用了autoprefix自动添加前缀，这样压缩，会导致添加的前缀丢失)
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -17,6 +17,8 @@ const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plug
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // 复制文件
 const CopyPlugin = require('copy-webpack-plugin')
+// 添加缓存
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = {
   entry: './src/index.jsx',
@@ -144,6 +146,7 @@ module.exports = {
     new CopyPlugin([
       {from: path.resolve(__dirname, 'public', 'vendor.dll.js'), to: path.resolve(__dirname, 'dist', 'static')}, // 复制dll文件到dist
     ]),
+    new HardSourceWebpackPlugin(),
     // new ProgressBarPlugin({
     //   format: '  build [:bar] :percent (:elapsed seconds)',
     //   clear: false,
