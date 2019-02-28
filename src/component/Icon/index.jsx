@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import './index.css'
 
 // 引入所有图标
@@ -6,6 +7,14 @@ const req = require.context('../../assets/icons', false, /\.svg$/)
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 requireAll(req)
 
-const Icon = ({ iconName }) => <svg styleName="svg-icon" aria-hidden="true" dangerouslySetInnerHTML={{__html: `<use href=#icon-${iconName}></use>`}}/>
+const Icon = ({ iconName }) => <svg styleName="svg-icon" aria-hidden="true" dangerouslySetInnerHTML={{ __html: `<use href=#icon-${iconName}></use>` }}/>
+
+Icon.defaultProps = {
+  iconName: 'back',
+}
+
+Icon.propTypes = {
+  iconName: propTypes.string,
+}
 
 export default Icon

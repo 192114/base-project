@@ -1,6 +1,7 @@
 import React from 'react'
+import Icon from './component/Icon/index'
 import './assets/styles/test.css'
 
-const App = () => <div>test</div>
+const App = () => <Icon />
 
 export default App
