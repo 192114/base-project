@@ -175,19 +175,23 @@ module.exports = {
 
 7. speed-measure-webpack-plugin 打包个loader和plugin耗时分析（出现了html-webpack-include-assets-plugin注入失败（不清楚原因））
 
-```javascript
-// webpack 打包分析
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+  ```javascript
+  // webpack 打包分析
+  const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 
-const smp = new SpeedMeasurePlugin()
+  const smp = new SpeedMeasurePlugin()
 
-smp.wrap({
-  /** config **/
-})
-```
+  smp.wrap({
+    /** config **/
+  })
+  ```
 
 8. 缓存问题
 
-*我们使用 [cache-loader](https://github.com/webpack-contrib/cache-loader) 来缓存结果（[babel-loader](https://github.com/babel/babel-loader) 的用户通常会优先选择使用它的 内建缓存，[UglifyJSPlugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) 的 内建缓存，以及加入了 [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin)*
+  *我们使用 [cache-loader](https://github.com/webpack-contrib/cache-loader) 来缓存结果（[babel-loader](https://github.com/babel/babel-loader) 的用户通常会优先选择使用它的 内建缓存，[UglifyJSPlugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) 的 内建缓存，以及加入了 [HardSourceWebpackPlugin](https://github.com/mzgoddard/hard-source-webpack-plugin)*
 
-*最后要注意的是，每当程序包依赖性发生变化时，请记住清除缓存 - 可以使用 npm postinstall script 自动执行。*
+  *最后要注意的是，每当程序包依赖性发生变化时，请记住清除缓存 - 可以使用 npm postinstall script 自动执行。*
+
+  *HardSourceWebpackPlugin 缓存的默认存储路径是：node_modules/.cache/hard-source/[confighash]*
+
+  *使用npm run rmcache 删除node_modules下的.cache目录清除缓存*

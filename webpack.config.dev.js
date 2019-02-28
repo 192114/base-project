@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OpenBroswerPlugin = require('open-browser-webpack-plugin')
 // 增强html-webpack-plugin (注入dll生成的基础库）也可以考虑放到html-webpack-plugin的模板中写dll的路径
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+// 添加缓存
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -113,6 +115,7 @@ module.exports = {
       hash: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new HardSourceWebpackPlugin(),
     new OpenBroswerPlugin({
       url: 'http://localhost:3000',
     }),
@@ -124,7 +127,7 @@ module.exports = {
 
     // 删除不必要的后缀自动补全，少了文件后缀的自动匹配，即减少了文件路径查询的工作
     // 其他文件可以在编码时指定后缀，如 import('./index.scss')
-    extensions: [".js"],
+    extensions: ['.js', '.jsx'],
 
     // 避免新增默认文件，编码时使用详细的文件路径，代码会更容易解读，也有益于提高构建速度
     mainFiles: ['index'],

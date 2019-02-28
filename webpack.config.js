@@ -174,7 +174,7 @@ module.exports = {
       }),
       new UglifyJsPlugin({
         test: /\.js(\?.*)?$/i,
-        cache: false,
+        cache: true,
         parallel: true,
         uglifyOptions: {
           compress: {
