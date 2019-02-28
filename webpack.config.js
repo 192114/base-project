@@ -1,6 +1,8 @@
 // node 内置模块
 const path = require('path')
 const webpack = require('webpack')
+const os = require('os')
+const ossize = os.cpus().length
 // css 压缩 (直接使用 minimize: true 在匹配到css后直接压缩, 项目是用了autoprefix自动添加前缀，这样压缩，会导致添加的前缀丢失)
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -10,9 +12,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 增强html-webpack-plugin (注入dll生成的基础库）也可以考虑放到html-webpack-plugin的模板中写dll的路径
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 // 显示打包进度
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+// const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 // js 压缩
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// 复制文件
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/index.jsx',
@@ -35,7 +39,7 @@ module.exports = {
           },
           {
             loader: 'eslint-loader',
-          }
+          },
         ],
       },
       {
@@ -123,48 +127,58 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Are you ok?',
       template: path.resolve(__dirname, 'src/assets/template/template.html'),
-      minify: { // 压缩 HTML 的配置
+      minify: {
+        // 压缩 HTML 的配置
         minifyCSS: true, // 压缩 HTML 中出现的 CSS 代码
-        minifyJS: true // 压缩 HTML 中出现的 JS 代码
+        minifyJS: true, // 压缩 HTML 中出现的 JS 代码
       },
     }),
     new webpack.DllReferencePlugin({
-      manifest: require('./dist/lib/vendor.manifest.json'),
+      manifest: require('./public/vendor.manifest.json'),
     }),
     new HtmlWebpackIncludeAssetsPlugin({
-      assets: ['./lib/vendor.dll.js'], // 添加的资源相对html的路径
+      assets: ['./static/vendor.dll.js'], // 添加的资源相对html的路径
       append: false, // false 在其他资源的之前添加 true 在其他资源之后添加
-      hash: true,
+      hash: false,
     }),
-    new ProgressBarPlugin({
-      format: '  build [:bar] :percent (:elapsed seconds)',
-      clear: false,
-      width: 60,
-    }),
+    new CopyPlugin([
+      {from: path.resolve(__dirname, 'public', 'vendor.dll.js'), to: path.resolve(__dirname, 'dist', 'static')}, // 复制dll文件到dist
+    ]),
+    // new ProgressBarPlugin({
+    //   format: '  build [:bar] :percent (:elapsed seconds)',
+    //   clear: false,
+    //   width: 60,
+    // }),
   ],
   // 优化部分
   optimization: {
     minimize: true,
     minimizer: [
       new OptimizeCSSAssetsPlugin({
-        assetNameRegExp: /\.css\.*(?!.*map)/g,  //注意不要写成 /\.css$/g
+        assetNameRegExp: /\.css\.*(?!.*map)/g, //注意不要写成 /\.css$/g
         cssProcessor: cssnano,
         cssProcessorOptions: {
-          discardComments: {removeAll: true},
+          discardComments: { removeAll: true },
           // 避免 cssnano 重新计算 z-index
           safe: true,
           // cssnano 集成了autoprefixer的功能
           // 会使用到autoprefixer进行无关前缀的清理
           // 关闭autoprefixer功能
           // 使用postcss的autoprefixer功能
-          autoprefixer: false
+          autoprefixer: false,
         },
-        canPrint: true
+        canPrint: true,
       }),
       new UglifyJsPlugin({
         test: /\.js(\?.*)?$/i,
-        cache: true
-      })
+        cache: false,
+        parallel: true,
+        uglifyOptions: {
+          compress: {
+            drop_console: true, // 删除console
+          }
+        }
+      }),
     ],
 
     // 提取公共模块
@@ -184,9 +198,9 @@ module.exports = {
           chunks: 'all',
           enforce: true,
           priority: 20,
-        }
-      }
-    }
+        },
+      },
+    },
   },
   // 处理解析
   resolve: {
@@ -199,6 +213,6 @@ module.exports = {
     extensions: ['.js', '.jsx'],
 
     // 避免新增默认文件，编码时使用详细的文件路径，代码会更容易解读，也有益于提高构建速度 （默认就是index）
-    mainFiles: ['index']
-  }
+    mainFiles: ['index'],
+  },
 }

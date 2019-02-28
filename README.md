@@ -108,4 +108,80 @@ module.exports = {
 ## webpack 部分
 1. 加入dll优化
  - 在首次构建项目时，先生成dll，可以增加打包速度
- - TODO: dev状态下的处理
+ - 在开发环境，配置devserver的contentBase将dll作为一个静态文件目录
+
+2. rimraf模块
+*（npm i rimraf -D）用于删除文件或文件夹*
+
+3. cpr模块
+*（npm i cpr -D）用于拷贝文件或文件夹*
+
+   - *usage: cpr \<source> \<destination> [options]*
+   - *cpr 默认是不覆盖的，需要显示传入 -o 配置项*
+
+4. make-dir-cli
+*用于创建目录*
+
+5. 多线程编译（thread-loader或者happypack，在性能好的机器上有提升）
+ - thread-loader 不能与 mini-css-extract-plugin 结合使用
+
+ - happypack使用
+  ```javascript
+    const HappyPack = require('happypack');
+    const os = require('os');
+    const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+    const happyLoaderId = 'happypack-for-react-babel-loader';
+
+    module.exports = {
+      module: {
+        rules: [{
+          test: /\.jsx?$/,
+          loader: 'happypack/loader',
+          query: {
+            id: happyLoaderId
+          },
+          include: [path.resolve(process.cwd(), 'src')]
+        }]
+      },
+      plugins: [new HappyPack({
+        id: happyLoaderId,
+        threadPool: happyThreadPool,
+        loaders: ['babel-loader']
+      })]
+    }
+  ```
+  - thread-loader 使用 *(每个worker都是一个单独的node.js进程，其开销约为600ms，所以打小项目时候时间会变长)*
+  ```javascript
+    module.exports = {
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            include: path.resolve("src"),
+            use: [
+              "thread-loader",
+              // your expensive loader (e.g babel-loader)
+              "babel-loader"
+            ]
+          }
+        ]
+      }
+    }
+  ```
+
+6. DllPlugin && DllReferencePlugin && autodll-webpack-plugin
+  > - dllPlugin将模块预先编译，DllReferencePlugin 将预先编译好的模块关联到当前编译中，当 webpack 解析到这些模块时，会直接使用预先编译好的模块。
+  > - autodll-webpack-plugin 相当于 dllPlugin 和 DllReferencePlugin 的简化版，其实本质也是使用 dllPlugin && DllReferencePlugin，它会在第一次编译的时候将配置好的需要预先编译的模块编译在缓存中，第二次编译的时候，解析到这些模块就直接使用缓存，而不是去编译这些模块
+
+7. speed-measure-webpack-plugin 打包个loader和plugin耗时分析（出现了html-webpack-include-assets-plugin注入失败（不清楚原因））
+
+```javascript
+// webpack 打包分析
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+
+const smp = new SpeedMeasurePlugin()
+
+smp.wrap({
+  /** config **/
+})
+```

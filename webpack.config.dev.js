@@ -4,6 +4,8 @@ const webpack = require('webpack')
 // 生成html模版
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OpenBroswerPlugin = require('open-browser-webpack-plugin')
+// 增强html-webpack-plugin (注入dll生成的基础库）也可以考虑放到html-webpack-plugin的模板中写dll的路径
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -20,6 +22,8 @@ module.exports = {
     hot: true,
     port: '3000',
     publicPath: '/',
+    // 设置contentbase 来加载dll中的内容
+    contentBase: [path.resolve(__dirname, 'public')],
     historyApiFallback: true, // 任何404响应都会替换成index.html (使用html5 history API时 可以防止刷新后404)
     proxy: {
       '/api': {
@@ -100,8 +104,18 @@ module.exports = {
       title: 'Are you ok?',
       template: path.resolve(__dirname, 'src/assets/template/template.html'),
     }),
+    new webpack.DllReferencePlugin({
+      manifest: require('./public/vendor.manifest.json'),
+    }),
+    new HtmlWebpackIncludeAssetsPlugin({
+      assets: ['./vendor.dll.js'], // 添加的资源相对html的路径 （由于配置contentBase为public 所以路径可以直接获取）
+      append: false, // false 在其他资源的之前添加 true 在其他资源之后添加
+      hash: true,
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new OpenBroswerPlugin(),
+    new OpenBroswerPlugin({
+      url: 'http://localhost:3000',
+    }),
   ],
   resolve: {
     modules: [
@@ -124,14 +138,6 @@ module.exports = {
       chunks: 'all', // 所有的 chunks 代码公共的部分分离出来成为一个单独的文件
       cacheGroups: {
         // js提取
-        reactBase: {
-          name: 'reactBase',
-          test: (module) => {
-            return /react|redux|prop-types/.test(module.context);
-          },
-          chunks: 'initial',
-          priority: 10,
-        },
         common: {
           name: 'common',
           chunks: 'initial',
@@ -141,10 +147,10 @@ module.exports = {
         // css 提取
         styles: {
           name: 'styles',
-          test: /\.(post)?css$/,
+          test: /\.css$/,
           chunks: 'all',
           enforce: true,
-          priority: 20,
+          priority: 20, // 权重 越大优先级越高
         }
       }
     }

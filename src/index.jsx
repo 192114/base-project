@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import './styles/test.css'
+import './assets/styles/test.css'
 
 // import Icon from './component/Icon/index'
 
