@@ -195,3 +195,44 @@ module.exports = {
   *HardSourceWebpackPlugin 缓存的默认存储路径是：node_modules/.cache/hard-source/[confighash]*
 
   *使用npm run rmcache 删除node_modules下的.cache目录清除缓存*
+
+
+## 开中的配置
+1. react-hot-loader 开启热更新
+ *（npm i react-hot-loader）*
+ - 推荐方式
+   - babel中配置插件 "react-hot-loader/babel"
+   - 在代码中使用
+   ```javascript
+    // 这种方式 React 16.6+ features may not work
+    import { hot } from 'react-hot-loader/root'
+    import App from './App'
+
+    export default hot(App)
+   ```
+ - 想用的方式
+  *（npm i @hot-loader/react-dom@YOUR_REACT_VERSION）*
+  - 在webpack配置中配置 用包含补丁的react-dom替换真正的react-dom *（没成功 待尝试）*
+  ```javascript
+    resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom'
+      }
+    }
+  ```
+2. 代码分割+按需加载
+  - react 原生支持的 lazy方法(不支持服务端渲染 推荐使用Loadable Components)
+
+    *使用babel时需要配置@babel/plugin-syntax-dynamic-import 支持使用import()方法*
+
+    ```javascript
+      const OtherComponent = React.lazy(() => import('./OtherComponent'));
+
+      function MyComponent() {
+        return (
+          <div>
+            <OtherComponent />
+          </div>
+        );
+      }
+    ```

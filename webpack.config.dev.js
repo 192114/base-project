@@ -21,11 +21,12 @@ module.exports = {
   },
 
   devServer: {
+    // http://localhost:8080/webpack-dev-server 可以看见资源的路径
     hot: true,
     port: '3000',
-    publicPath: '/',
+    publicPath: '/', // webpack-dev-server打包的内容是放在内存中的，这些打包后的资源对外的的根目录（打包后资源存放的位置）
     // 设置contentbase 来加载dll中的内容
-    contentBase: [path.resolve(__dirname, 'public')],
+    contentBase: [path.resolve(__dirname, 'public')], // 静态资源位置
     historyApiFallback: true, // 任何404响应都会替换成index.html (使用html5 history API时 可以防止刷新后404)
     proxy: {
       '/api': {
@@ -44,6 +45,9 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+          },
+          {
+            loader: 'eslint-loader',
           },
         ],
       },

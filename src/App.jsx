@@ -1,7 +1,14 @@
-import React from 'react'
-import Icon from './component/Icon/index'
-import './assets/styles/test.css'
+import React, { lazy } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-const App = () => <Icon />
+const Home = lazy(() => import('./page/Home'))
+const About = lazy(() => import('./page/About'))
+
+const App = () => (
+  <Router>
+    <Route exact path="/" component={Home} />
+    <Route path="/about" component={About} />
+  </Router>
+)
 
 export default App

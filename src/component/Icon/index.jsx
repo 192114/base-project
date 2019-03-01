@@ -7,7 +7,7 @@ const req = require.context('../../assets/icons', false, /\.svg$/)
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 requireAll(req)
 
-const Icon = ({ iconName }) => <svg styleName="svg-icon" aria-hidden="true" dangerouslySetInnerHTML={{ __html: `<use href=#icon-${iconName}></use>` }}/>
+const Icon = ({ iconName }) => <svg styleName="svg-icon" aria-hidden="true" dangerouslySetInnerHTML={{ __html: `<use href=#icon-${iconName}></use>` }} />
 
 Icon.defaultProps = {
   iconName: 'back',

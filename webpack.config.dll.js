@@ -5,7 +5,7 @@ const path = require('path')
 const vendors = [
   'react',
   'react-dom',
-  // 'react-router',
+  'react-router-dom',
   // 'axios',
 ]
 

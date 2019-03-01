@@ -4,9 +4,11 @@
     "@babel/preset-react"
   ],
   "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime",
     ["react-css-modules", {
       "exclude": "node_modules",
-    }]
+    }],
+    "react-hot-loader/babel",
   ]
 }
