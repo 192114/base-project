@@ -6,6 +6,15 @@
   - 移除内联的 Babel helper 并使用模块 babel-runtime/helpers 代替（提取babel转换语法的代码）
  3. @babel/runtime（实际导入的功能模块） 将依赖的全局内置对象，抽取出单独的模块，并通过导入的方式引入
  4. @babel/preset-env和@babel/preset-react 它能根据当前的运行环境，自动确定你需要的 plugins 和 polyfills
+ 5. @babel/plugin-proposal-class-properties   不用使用bind去绑定this
+    ```javascript
+      class Bork {
+        boundFunction = () => {
+          return this.state;
+        }
+      }
+    ```
+
  > Babel 默认只转换新的 JavaScript 语法，而不转换新的 API。例如，Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign）都不会转译。如果想使用这些新的对象和方法，必须使用 babel-polyfill，为当前环境提供一个垫片。
 
  > ### transform-runtime 对比 babel-polyfill
