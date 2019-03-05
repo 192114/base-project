@@ -205,6 +205,21 @@ module.exports = {
 
   *使用npm run rmcache 删除node_modules下的.cache目录清除缓存*
 
+9. 关于webpack4.29.0 import()报错问题
+  ```
+    ERROR in ./src/App.jsx 9:9
+    Module parse failed: Unexpected token (9:9)
+    You may need an appropriate loader to handle this file type.
+    | import { BrowserRouter as Router, Route } from 'react-router-dom';
+    | var Home = lazy(function () {
+    >   return import('./page/Home');
+    | });
+    | var About = lazy(function () {
+    @ ./src/HotMiddlePage.jsx 8:0-24 10:19-22
+    @ ./src/index.jsx
+    @ multi (webpack)-dev-server/client?http://localhost:3000 (webpack)/hot/dev-server.js ./src/index.jsx
+  ```
+  原因及解决方案: https://github.com/webpack/webpack/issues/8656
 
 ## 开中的配置
 1. react-hot-loader 开启热更新
