@@ -1,8 +1,12 @@
 import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-const Home = lazy(() => import('./page/Home'))
-const About = lazy(() => import('./page/About'))
+// 引入normalize.css
+import 'normalize.css'
+
+const Home = lazy(() => import(/* webpackChunkName: "home" */'./page/Home'))
+const About = lazy(() => import(/* webpackChunkName: "about" */'./page/About'))
+const Login = lazy(() => import(/* webpackChunkName: "login" */'./page/Login'))
 
 const App = () => (
   <Router>
@@ -10,6 +14,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
+        <Route path="/login" component={Login} />
       </Switch>
     </Suspense>
   </Router>
