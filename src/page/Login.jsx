@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import Icon from '../component/Icon'
+
+import '../assets/styles/login.css'
 
 const Login = () => {
   // hooks usage
@@ -9,6 +12,7 @@ const Login = () => {
 
   return (
     <div>
+      <Icon styleName="title-icon" />
       name:
       <input name="name" value={name} onChange={handleNameChange} />
     </div>

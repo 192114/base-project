@@ -68,6 +68,22 @@ module.exports = {
           },
         ],
       },
+      // 处理node_modules 中的css
+      {
+        test: /\.css$/,
+        include: [path.resolve(__dirname, 'node_modules')],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '/',
+            },
+          },
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
       {
         test: /.*\.(gif|png|jpe?g|svg|webp)$/i,
         // exclude: /node_modules/,

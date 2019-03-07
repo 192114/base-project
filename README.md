@@ -56,7 +56,7 @@
 *使用svg小图标将svg代码添加到html中 https://juejin.im/post/59bb864b5188257e7a427c09*
  - svgo 压缩svg 删除无用的代码
 11. babel-plugin-react-css-modules
-*css模块化 以组件分割*
+*css模块化 以组件分割 https://github.com/gajus/babel-plugin-react-css-modules*
 
 ## browserslist内容记录
 *https://github.com/browserslist/browserslist*
@@ -221,7 +221,7 @@ module.exports = {
   ```
   原因及解决方案: https://github.com/webpack/webpack/issues/8656
 
-## 开中的配置
+## 开发中的配置
 1. react-hot-loader 开启热更新
  *（npm i react-hot-loader）*
  - 推荐方式
@@ -260,3 +260,13 @@ module.exports = {
         );
       }
     ```
+## 代码相关
+1. react 支持svg问题
+  ```javascript
+    <svg className="icon" aria-hidden="true">
+      <use xlink:href="#hfq-home_fill"></use>
+    </svg>
+    <!-- react需要写成 -->
+    <!-- 将xlink:href替换成xlinkHref -->
+    <svg styleName="svg-icon" aria-hidden="true"><use xlinkHref={`#icon-${iconName}`} /></svg>
+  ```

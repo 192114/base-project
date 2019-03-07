@@ -1,6 +1,6 @@
+/* 忽略此处语法提示 */
 @svg 1px-border {
   height: 2px;
-
   @rect {
     fill: var(--color, black);
     width: 100%;
@@ -8,16 +8,11 @@
   }
 }
 
-/*
-:global(.foo) {
-  background-image: url(../images/Back.png);
+html {
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
-:global(.bar) {
-  background-image: url(../images/Back1.png);
-}
-
-.example {
+/* .example {
   border-bottom: 1px solid transparent;
   border-image: svg(1px-border param(--color #00b1ff)) 2 2 stretch;
   width: px2rem(640);

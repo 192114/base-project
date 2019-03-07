@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 // 引入normalize.css
 import 'normalize.css'
+// 引入全局几本样式
+import './assets/styles/app.css'
 
 const Home = lazy(() => import(/* webpackChunkName: "home" */'./page/Home'))
 const About = lazy(() => import(/* webpackChunkName: "about" */'./page/About'))

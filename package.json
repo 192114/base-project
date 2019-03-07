@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "rmcache": "rimraf node_modules/.cache/*",
-    "pre": "rimraf public && webpack --mode production --config ./webpack.config.dll.js",
+    "dll": "rimraf public && webpack --mode production --config ./webpack.config.dll.js",
     "build": "rimraf dist && webpack --mode production",
     "start": "webpack-dev-server --mode development --config ./webpack.config.dev.js",
+    "lint:js": "eslint ./src/page/*.jsx & eslint ./src/*.jsx & eslint ./src/component/**/*.jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
