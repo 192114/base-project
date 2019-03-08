@@ -12,7 +12,7 @@ module.exports = {
     functions({
       functions: {
         px2rem: function($val) {
-          return $val / 64 * 1 + 'rem'
+          return $val / 75 * 1 + 'rem'
         },
       },
     }),

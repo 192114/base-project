@@ -8,8 +8,33 @@
   }
 }
 
+/* rem 单位换算：定为 75px 只是方便运算，750px-75px、640-64px、1080px-108px，如此类推 */
+
+/* 计算方法分析 */
+
+/*
+  1. 750px设计稿 750px --> 100vw      75px ----> 10vw
+  2. 将html font-size设置成 75px 即 10vw
+  3. px2rem 的公式为 $px / 75 * 1 + 'rem'    width设置成750px 就换算成了10rem依次类推
+*/
+
 html {
   font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 10vw;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  /* 设置最大和最小范围 */
+  @media screen and (max-width: 320px) {
+    font-size: 64px;
+  }
+  @media screen and (min-width: 540px) {
+    font-size: 108px;
+  }
+}
+
+body {
+  max-width: 540px;
+  min-width: 320px;
 }
 
 /* .example {

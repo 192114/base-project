@@ -1,7 +1,41 @@
-.title-icon {
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
+@svg 1px-border {
+  height: 2px;
+  @rect {
+    fill: var(--color, black);
+    width: 100%;
+    height: 50%;
+  }
+}
+
+.container {
+  width: px2rem(750);
+  height: 100vh;
+  background: #ff6700;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-section {
+  width: px2rem(540);
+  font-size: px2rem(32);
+  box-sizing: border-box;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 12px;
+
+  label {
+    display: flex;
+    padding: 6px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    align-items: center;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
 }
