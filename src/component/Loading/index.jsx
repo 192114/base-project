@@ -8,7 +8,7 @@ const Loading = () => (
         <circle styleName="item" cx="25" cy="25" r="20" fill="none" />
         <circle styleName="item" cx="25" cy="25" r="20" fill="none" />
       </svg>
-      <p>加载中...</p>
+      <p>加载中</p>
     </section>
   </div>
 )
