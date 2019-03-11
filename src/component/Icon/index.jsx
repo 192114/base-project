@@ -1,6 +1,6 @@
 import React from 'react'
 import propTypes from 'prop-types'
-import './index.css'
+import './icon.css'
 
 // 引入所有图标
 const req = require.context('../../assets/icons', false, /\.svg$/)

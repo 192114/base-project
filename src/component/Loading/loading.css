@@ -1,0 +1,53 @@
+.container {
+  position: absolute;
+  display: flex;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-box {
+  width: px2rem(240);
+  background: rgba(0, 0, 0, 0.7);
+  padding-top: 12px;
+  border-radius: 12px;
+
+  p {
+    color: #fff;
+    font-size: px2rem(28);
+    text-align: center;
+  }
+}
+
+svg {
+  animation: zfbloading 1.4s linear infinite;
+  margin-left: px2rem(60);
+  width: px2rem(120);
+}
+
+.item:nth-child(1) {
+  stroke: rgb(255, 255, 255);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+.item:nth-child(2) {
+  stroke: rgb(24, 120, 222);
+  stroke-width: 2px;
+  stroke-dasharray: 10, 300;
+  stroke-linecap: round;
+}
+
+@keyframes zfbloading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

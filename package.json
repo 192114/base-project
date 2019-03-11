@@ -8,7 +8,7 @@
     "dll": "rimraf public && webpack --mode production --config ./webpack.config.dll.js",
     "build": "rimraf dist && webpack --mode production",
     "start": "webpack-dev-server --mode development --config ./webpack.config.dev.js",
-    "lint:js": "eslint ./src/page/*.jsx & eslint ./src/*.jsx & eslint ./src/component/**/*.jsx",
+    "lint:js": "eslint ./src/page/*.jsx --fix & eslint ./src/*.jsx --fix & eslint ./src/component/**/*.jsx --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
