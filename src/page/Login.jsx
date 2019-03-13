@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import propTypes from 'prop-types'
 import Icon from '../component/Icon'
 import '../assets/styles/login.css'
 
@@ -10,7 +11,6 @@ const Login = ({ history }) => {
   const handlePasswordChange = e => setPassword(e.target.value)
 
   const login = () => {
-    console.log(userName, password)
     history.push('/')
   }
 
@@ -31,6 +31,14 @@ const Login = ({ history }) => {
       </section>
     </div>
   )
+}
+
+Login.defaultProps = {
+  history: {},
+}
+
+Login.propTypes = {
+  history: propTypes.shape({}),
 }
 
 export default Login

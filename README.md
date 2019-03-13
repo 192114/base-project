@@ -270,3 +270,7 @@ module.exports = {
     <!-- 将xlink:href替换成xlinkHref -->
     <svg styleName="svg-icon" aria-hidden="true"><use xlinkHref={`#icon-${iconName}`} /></svg>
   ```
+
+2. react-router-dom 记录
+  - Switch 路由匹配时，默认只匹配第一个
+  - exact 精确匹配

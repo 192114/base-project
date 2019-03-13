@@ -62,14 +62,24 @@ body {
   z-index: 1;
 }
 
-:global(.next-enter.next-enter-active) {
-  transform: translateX(0%);
-  transition: all 250ms ease-in;
-}
-
 :global(.next-exit) {
   transform: translateX(0%);
   z-index: 1;
+}
+
+:global(.pre-enter) {
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+:global(.pre-exit) {
+  transform: translateX(0%);
+  z-index: 1;
+}
+
+:global(.next-enter.next-enter-active) {
+  transform: translateX(0%);
+  transition: all 250ms ease-in;
 }
 
 :global(.next-exit.next-exit-active) {
@@ -77,20 +87,9 @@ body {
   transition: all 250ms ease-in;
 }
 
-/* 路由回退动画 */
-:global(.pre-enter) {
-  transform: translateX(-100%);
-  z-index: 1;
-}
-
 :global(.pre-enter.pre-enter-active) {
   transform: translateX(0%);
   transition: all 250ms ease-in;
-}
-
-:global(.pre-exit) {
-  transform: translateX(0%);
-  z-index: 1;
 }
 
 :global(.pre-exit.pre-exit-active) {

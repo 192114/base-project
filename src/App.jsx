@@ -18,25 +18,30 @@ const Login = lazy(() => import(/* webpackChunkName: "login" */'./page/Login'))
 
 const App = () => (
   <Router>
-    <Route render={({ location, history }) => (
-      <TransitionGroup>
-        <CSSTransition
-          key={location.key}
-          // TODO: react 前进后退
-          classNames={history.action === 'PUSH' ? 'next' : 'pre'}
-          timeout={250}
+    <Route render={({ location, history }) => {
+      const classNames = history.action === 'PUSH' ? 'next' : 'pre'
+      return (
+        <TransitionGroup
+          childFactory={child => React.cloneElement(child, {
+            classNames,
+          })}
         >
-          <Suspense fallback={<Loading />}>
-            <Switch location={location}>
-              <Route exact path="/" component={Home} />
-              <Route path="/about" component={About} />
-              <Route path="/login" component={Login} />
-              <Route render={<div>not found</div>} />
-            </Switch>
-          </Suspense>
-        </CSSTransition>
-      </TransitionGroup>
-    )
+          <CSSTransition
+            key={location.key}
+            timeout={250}
+          >
+            <Suspense fallback={<Loading />}>
+              <Switch location={location}>
+                <Route exact path="/" component={Home} />
+                <Route path="/about" component={About} />
+                <Route path="/login" component={Login} />
+                <Route render={() => <div>not found</div>} />
+              </Switch>
+            </Suspense>
+          </CSSTransition>
+        </TransitionGroup>
+      )
+    }
   } />
   </Router>
 )
