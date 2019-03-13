@@ -23,7 +23,7 @@
   }
 }
 
-svg {
+.lode-svg {
   animation: zfbloading 1.4s linear infinite;
   margin-left: px2rem(60);
   width: px2rem(120);

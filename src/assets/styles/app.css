@@ -37,6 +37,16 @@ body {
   min-width: 320px;
 }
 
+:global(.container) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #3c3c3c;
+  overflow: hidden;
+}
+
 /* .example {
   border-bottom: 1px solid transparent;
   border-image: svg(1px-border param(--color #00b1ff)) 2 2 stretch;
@@ -45,3 +55,45 @@ body {
   box-sizing: border-box;
   color: #fff;
 } */
+
+/* 路由前进动画 */
+:global(.next-enter) {
+  transform: translateX(100%);
+  z-index: 1;
+}
+
+:global(.next-enter.next-enter-active) {
+  transform: translateX(0%);
+  transition: all 250ms ease-in;
+}
+
+:global(.next-exit) {
+  transform: translateX(0%);
+  z-index: 1;
+}
+
+:global(.next-exit.next-exit-active) {
+  transform: translateX(-100%);
+  transition: all 250ms ease-in;
+}
+
+/* 路由回退动画 */
+:global(.pre-enter) {
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+:global(.pre-enter.pre-enter-active) {
+  transform: translateX(0%);
+  transition: all 250ms ease-in;
+}
+
+:global(.pre-exit) {
+  transform: translateX(0%);
+  z-index: 1;
+}
+
+:global(.pre-exit.pre-exit-active) {
+  transform: translateX(100%);
+  transition: all 250ms ease-in;
+}
