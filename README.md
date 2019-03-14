@@ -14,7 +14,7 @@
         }
       }
     ```
-
+  6. @babel/plugin-proposal-decorators 使用修饰器语法*要放在首位*
  > Babel 默认只转换新的 JavaScript 语法，而不转换新的 API。例如，Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign）都不会转译。如果想使用这些新的对象和方法，必须使用 babel-polyfill，为当前环境提供一个垫片。
 
  > ### transform-runtime 对比 babel-polyfill

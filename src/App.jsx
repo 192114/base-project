@@ -13,7 +13,7 @@ import 'normalize.css'
 import './assets/styles/app.css'
 
 const Home = lazy(() => import(/* webpackChunkName: "home" */'./page/Home'))
-const About = lazy(() => import(/* webpackChunkName: "about" */'./page/About'))
+const TodoList = lazy(() => import(/* webpackChunkName: "todolist" */'./page/TodoList'))
 const Login = lazy(() => import(/* webpackChunkName: "login" */'./page/Login'))
 
 const App = () => (
@@ -33,7 +33,7 @@ const App = () => (
             <Suspense fallback={<Loading />}>
               <Switch location={location}>
                 <Route exact path="/" component={Home} />
-                <Route path="/about" component={About} />
+                <Route path="/todo" component={TodoList} />
                 <Route path="/login" component={Login} />
                 <Route render={() => <div>not found</div>} />
               </Switch>

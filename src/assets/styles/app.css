@@ -96,3 +96,8 @@ body {
   transform: translateX(100%);
   transition: all 250ms ease-in;
 }
+
+/* 基础类 */
+:global(.mt10) {
+  margin-top: 10px;
+}
