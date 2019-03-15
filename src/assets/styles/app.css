@@ -47,6 +47,11 @@ body {
   overflow: hidden;
 }
 
+/* 基础类 */
+:global(.mt10) {
+  margin-top: 10px;
+}
+
 /* .example {
   border-bottom: 1px solid transparent;
   border-image: svg(1px-border param(--color #00b1ff)) 2 2 stretch;
@@ -95,9 +100,4 @@ body {
 :global(.pre-exit.pre-exit-active) {
   transform: translateX(100%);
   transition: all 250ms ease-in;
-}
-
-/* 基础类 */
-:global(.mt10) {
-  margin-top: 10px;
 }

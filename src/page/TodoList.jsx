@@ -39,10 +39,24 @@ class ObservableTodoStore {
   @action
   addTodo(task) {
     this.todos.push({
+      id: this.todos.length,
       task,
       completed: false,
       assignee: null,
     })
+  }
+
+  // TODO: strict-mode is enabled, 处理
+  @action
+  toggleCompelete(id) {
+    const curr = this.todos.filter(todo => todo.id === id)[0]
+    curr.completed = !curr.completed
+  }
+
+  @action
+  rename(id) {
+    const curr = this.todos.filter(todo => todo.id === id)[0]
+    curr.task = prompt('Task name', curr.task) || curr.task
   }
 }
 
@@ -55,11 +69,11 @@ const observableTodoStore = new ObservableTodoStore()
 @observer
 class TodoList extends React.Component {
   onNewTodo = () => {
-    observableTodoStore.addTodo(prompt('Enter a new todo:', 'coffee plz'));
+    observableTodoStore.addTodo(prompt('Enter a new todo:', 'coffee plz'))
   }
 
   render() {
-    const store = observableTodoStore;
+    const store = observableTodoStore
     return (
       <div>
         {store.report}
@@ -72,24 +86,27 @@ class TodoList extends React.Component {
         <button onClick={this.onNewTodo} type="button">New Todo</button>
         <small> (double-click a todo to edit)</small>
       </div>
-    );
+    )
   }
 }
 
 @observer
 class TodoView extends React.Component {
   onToggleCompleted = () => {
-    const { todo } = this.props;
-    todo.completed = !todo.completed;
+    const { todo } = this.props
+    const { id } = todo
+    observableTodoStore.toggleCompelete(id)
   }
 
   onRename = () => {
-    const { todo } = this.props;
-    todo.task = prompt('Task name', todo.task) || todo.task;
+    const { todo } = this.props
+    const { id } = todo
+    observableTodoStore.rename(id)
   }
 
   render() {
     const { todo } = this.props
+    // 移动端监听不到双击事件
     return (
       <li onDoubleClick={this.onRename}>
         <input
@@ -103,7 +120,7 @@ class TodoView extends React.Component {
           : null
         }
       </li>
-    );
+    )
   }
 }
 
