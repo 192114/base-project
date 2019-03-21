@@ -1,0 +1,10 @@
+.search-btn-1 {
+  display: block;
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+.cansrcoll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
