@@ -16,6 +16,7 @@ const Home = lazy(() => import(/* webpackChunkName: "home" */'./page/Home'))
 const TodoList = lazy(() => import(/* webpackChunkName: "todolist" */'./page/TodoList'))
 const Login = lazy(() => import(/* webpackChunkName: "login" */'./page/Login'))
 const Weather = lazy(() => import(/* webpackChunkName: "login" */'./page/Weather'))
+const IndexDB = lazy(() => import(/* webpackChunkName: "login" */'./page/IndexDB'))
 
 const App = () => (
   <Router>
@@ -37,6 +38,7 @@ const App = () => (
                 <Route path="/todo" component={TodoList} />
                 <Route path="/login" component={Login} />
                 <Route path="/weather" component={Weather} />
+                <Route path="/indexDb" component={IndexDB} />
                 <Route render={() => <div>not found</div>} />
               </Switch>
             </Suspense>

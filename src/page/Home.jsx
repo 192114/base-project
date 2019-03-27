@@ -6,6 +6,8 @@ const Home = () => (
     <Link to="/todo">todolist</Link>
     <br />
     <Link to="/weather">get weather</Link>
+    <br />
+    <Link to="/indexDB">indexDB</Link>
   </div>
 )
 
